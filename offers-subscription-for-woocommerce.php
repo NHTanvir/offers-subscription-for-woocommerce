@@ -184,6 +184,7 @@ final class Plugin {
 		 * Executes on both the admin area and front area
 		 */
 		$common = new App\Common( $this->plugin );
+		$common->action( 'init', 'register_post_type' );
 
 		/**
 		 * AJAX related hooks
