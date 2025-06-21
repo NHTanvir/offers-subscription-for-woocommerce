@@ -4,6 +4,7 @@
  */
 namespace Codexpert\OffersSubscriptionForWoocommerce\App;
 use Codexpert\Plugin\Base;
+use Codexpert\OffersSubscriptionForWoocommerce\Helper;
 
 /**
  * if accessed directly, exit.
@@ -31,7 +32,7 @@ class Shortcode extends Base {
         $this->version  = $this->plugin['Version'];
     }
 
-    public function my_shortcode() {
-        return __( 'My Shortcode', 'offers-subscription-for-woocommerce' );
+    public function offers_form() {
+        return Helper::get_template( 'offer-form' );
     }
 }
