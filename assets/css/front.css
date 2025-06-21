@@ -14,3 +14,53 @@
 #offers-subscription-for-woocommerce-modal-loader {
     position: absolute;
 }
+/* popup.css */
+#bo-offer-popup {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 30px 20px 20px;
+  z-index: 9999;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+}
+
+#bo-offer-popup.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+#bo-popup-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -30%);
+  }
+}
+
+#bo-offer-message {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}

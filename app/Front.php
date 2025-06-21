@@ -56,4 +56,14 @@ class Front extends Base {
 			<img id="offers-subscription-for-woocommerce-modal-loader" src="' . esc_attr( Offers_Subscription_For_WooCommerce_ASSET . '/img/loader.gif' ) . '" />
 		</div>';
 	}
+
+	function offer_form_popup_markup() {
+		?>
+		<div id="bo-offer-popup">
+			<button id="bo-popup-close" aria-label="Close">&times;</button>
+			<p id="bo-offer-message"></p>
+		</div>
+		<?php
+	}
+
 }
