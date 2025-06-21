@@ -163,6 +163,8 @@ final class Plugin {
 			$front->action( 'wp_footer', 'modal' );
 			$front->action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 			$front->action( 'wp_footer', 'offer_form_popup_markup' );
+			$front->action( 'woocommerce_review_order_before_submit', 'checkout_consent_checkbox', 15 );
+			$front->action( 'woocommerce_checkout_process', 'validate_consent_checkbox' );
 
 			/**
 			 * Shortcode related hooks

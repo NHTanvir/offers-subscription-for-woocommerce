@@ -57,7 +57,7 @@ class Front extends Base {
 		</div>';
 	}
 
-	function offer_form_popup_markup() {
+	public function offer_form_popup_markup() {
 		?>
 		<div id="bo-offer-popup">
 			<button id="bo-popup-close" aria-label="Close">&times;</button>
@@ -66,4 +66,18 @@ class Front extends Base {
 		<?php
 	}
 
+	public function checkout_consent_checkbox() {
+		woocommerce_form_field( 'bo_consent', [
+			'type'    => 'checkbox',
+			'class'   => ['form-row'],
+			'label'   => __( 'I authorize KidsDenBirthdays to charge the amount listed above to the credit card I have provided. I agree to pay for this purchase in accordance with the issuing bank cardholder agreement. I understand this is a recurring subscription and that I will automatically be charged at each renewal interval.', 'breakout-offers' ),
+			'required' => true,
+		] );
+	}
+
+	public function validate_consent_checkbox() {
+		if ( empty( $_POST['bo_consent'] ) ) {
+			wc_add_notice( __( 'You must agree to the subscription terms.', 'breakout-offers' ), 'error' );
+		}
+	}
 }

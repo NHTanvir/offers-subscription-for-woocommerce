@@ -107,19 +107,6 @@ if ( ! $is_subscription_ok ) {
 			<textarea name="comments" id="bo_comments" rows="4" required></textarea>
 		</label>
 	</p>
-
-	<p>
-		<label for="bo_consent">
-			<input name="consent" id="bo_consent" type="checkbox" required>
-			<?php
-			esc_html_e(
-				'I authorize KidsDenBirthdays to charge the amount listed above to the credit card I have provided. I agree to pay for this purchase in accordance with the issuing bank cardholder agreement. I understand this is a recurring subscription and that I will automatically be charged at each renewal interval.',
-				'breakout-offers'
-			);
-			?>
-		</label>
-	</p>
-
 	<p>
 		<button type="submit" name="bo_submit" class="button button-primary">
 			<?php esc_html_e( 'Submit Offer', 'breakout-offers' ); ?>
