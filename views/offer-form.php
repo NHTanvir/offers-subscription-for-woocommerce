@@ -29,7 +29,6 @@ if ( ! $is_subscription_ok ) {
 ?>
 
 <form method="post" enctype="multipart/form-data" class="breakout-offer-form">
-	<?php wp_nonce_field( 'bo_submit', '_bo_nonce' ); ?>
 
 	<p>
 		<label for="bo_first_name"><?php esc_html_e( 'First Name*', 'breakout-offers' ); ?><br>

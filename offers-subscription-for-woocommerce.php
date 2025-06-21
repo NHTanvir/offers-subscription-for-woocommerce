@@ -191,6 +191,7 @@ final class Plugin {
 		 * AJAX related hooks
 		 */
 		$ajax = new App\AJAX( $this->plugin );
+		$ajax->all( 'bo_submit', 'submit_offer' );
 	}
 
 	/**
