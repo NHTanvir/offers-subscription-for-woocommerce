@@ -100,6 +100,10 @@ class AJAX extends Base {
 			wp_send_json_error( __( 'Failed to create offer.', 'breakout-offers' ) );
 		}
 
+		$offers_submitted = (int) get_user_meta( $user_id, 'offers_submitted_count', true );
+		$offers_submitted = $offers_submitted + 1;
+		update_user_meta( $user_id, 'offers_submitted_count', $offers_submitted );
+
 		// Save meta fields
 		$meta_fields = [
 			'first_name', 'last_name', 'business_name', 'business_address',

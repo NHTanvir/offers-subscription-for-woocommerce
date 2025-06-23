@@ -1,5 +1,6 @@
 <?php
 use Codexpert\OffersSubscriptionForWoocommerce\Helper;
+
 if ( ! is_user_logged_in() ) {
     return sprintf(
         '<p>%s <a href="%s">%s</a>.</p>',
@@ -9,26 +10,32 @@ if ( ! is_user_logged_in() ) {
     );
 }
 
-$user_id             = get_current_user_id();
-$subscription_id     = Helper::get_option( 'offers-subscription-for-woocommerce_advanced', 'subscription_id', 0 );
-if( !  $subscription_id ) {
-    echo __('Subscription ID is not set', 'breakout-offers' );
-    return;
+$user_id = get_current_user_id();
+$active_subscriptions = 0;
+if ( function_exists( 'wcs_get_users_subscriptions' ) ) {
+    $subscriptions = wcs_get_users_subscriptions( $user_id );
+    foreach ( $subscriptions as $subscription ) {
+        if ( $subscription->has_status( 'active' ) ) {
+            $active_subscriptions++;
+        }
+    }
 }
-$is_subscription_ok = function_exists( 'wcs_user_has_subscription' )
-    && wcs_user_has_subscription( $user_id, $user_id , 'active' );
 
-if ( ! $is_subscription_ok ) {
+$offers_submitted = (int) get_user_meta( $user_id, 'offers_submitted_count', true );
+
+
+if ( $active_subscriptions <= 0 || $offers_submitted >= $active_subscriptions ) {
     return sprintf(
         '<p>%s <a href="%s">%s</a>.</p>',
-        esc_html__( 'An active subscription is required to submit an offer.', 'breakout-offers' ),
+        esc_html__( 'You need more active subscriptions to submit more offers.', 'breakout-offers' ),
         esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ),
         esc_html__( 'Subscribe here', 'breakout-offers' )
     );
 }
 ?>
 
-<form method="post" enctype="multipart/form-data" class="breakout-offer-form">
+
+<form method="post" enctype="multipart/form-data" calass="breakout-offer-form">
 
 	<p>
 		<label for="bo_first_name"><?php esc_html_e( 'First Name*', 'breakout-offers' ); ?><br>

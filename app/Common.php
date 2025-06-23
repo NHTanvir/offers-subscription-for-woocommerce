@@ -4,6 +4,7 @@
  */
 namespace Codexpert\OffersSubscriptionForWoocommerce\App;
 use Codexpert\Plugin\Base;
+use Codexpert\OffersSubscriptionForWoocommerce\Helper;
 
 /**
  * if accessed directly, exit.
@@ -55,5 +56,16 @@ class Common extends Base {
 		);
 
 		register_post_type( 'breakout_offer', $args );
+	}
+
+	public function make_user_author_on_subscription( $subscription ) {
+
+		$subscription_id 	= $subscription->get_id();
+		$user_id 			= $subscription->get_user_id();
+		$user 				= get_user_by( 'id', $user_id );
+
+		if ( ! $user || in_array( 'author', $user->roles ) ) return;
+
+		$user->set_role( 'author' );
 	}
 }
