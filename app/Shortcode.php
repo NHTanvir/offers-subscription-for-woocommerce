@@ -35,4 +35,8 @@ class Shortcode extends Base {
     public function offers_form() {
         return Helper::get_template( 'offer-form' );
     }
+
+    public function offer_grid() {
+        return Helper::get_template( 'offer-grid' );
+    }
 }

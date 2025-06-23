@@ -171,6 +171,7 @@ final class Plugin {
 			 */
 			$shortcode = new App\Shortcode( $this->plugin );
 			$shortcode->register( 'breakout_offer_form', 'offers_form' );
+			$shortcode->register('breakout_offer_grid', 'offer_grid');
 
 		endif;
 
