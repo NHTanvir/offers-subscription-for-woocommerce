@@ -45,6 +45,7 @@ jQuery(function($){
                 $form[0].reset();
                 // show success
                 showOfferPopup(resp.data);
+      
             } else {
                 // show error
                 showOfferPopup(resp.data || 'Submission failed.');
@@ -56,10 +57,7 @@ jQuery(function($){
         .always(function() {
             // hide loader
             osfw_modal(false);
-            // re-enable button
-            $form.find('button[type="submit"]')
-                 .prop('disabled', false)
-                 .text('Submit Offer');
+          location.reload();
         });
 
         // disable button + change text

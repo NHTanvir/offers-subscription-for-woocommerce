@@ -48,7 +48,7 @@ class AJAX extends Base {
 		$required_fields = [
 			'first_name', 'last_name', 'business_name', 'business_address',
 			'business_phone', 'business_website', 'offer_headline',
-			'offer_details', 'offer_rules', 'comments', 'consent'
+			'offer_details', 'offer_rules', 'comments'
 		];
 
 		foreach ( $required_fields as $field ) {

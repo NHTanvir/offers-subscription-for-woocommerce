@@ -37,11 +37,13 @@ class Front extends Base {
 	 * Enqueue JavaScripts and stylesheets
 	 */
 	public function enqueue_scripts() {
+
+		wp_enqueue_script('jquery');
 		$min = defined( 'Offers_Subscription_For_WooCommerce_DEBUG' ) && Offers_Subscription_For_WooCommerce_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/front{$min}.css", Offers_Subscription_For_WooCommerce ), '', $this->version, 'all' );
+		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/front{$min}.css", Offers_Subscription_For_WooCommerce ), '', time(), 'all' );
 
-		wp_enqueue_script( $this->slug, plugins_url( "/assets/js/front{$min}.js", Offers_Subscription_For_WooCommerce ), [ 'jquery' ], $this->version, true );
+		wp_enqueue_script( $this->slug, plugins_url( "/assets/js/front{$min}.js", Offers_Subscription_For_WooCommerce ), [ 'jquery' ], time(), true );
 		
 		$localized = [
 			'ajaxurl'	=> admin_url( 'admin-ajax.php' ),

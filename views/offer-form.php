@@ -35,7 +35,7 @@ if ( $active_subscriptions <= 0 || $offers_submitted >= $active_subscriptions ) 
 ?>
 
 
-<form method="post" enctype="multipart/form-data" calass="breakout-offer-form">
+<form method="post" enctype="multipart/form-data" class="breakout-offer-form">
 
 	<p>
 		<label for="bo_first_name"><?php esc_html_e( 'First Name*', 'breakout-offers' ); ?><br>
