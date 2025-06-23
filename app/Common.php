@@ -66,7 +66,7 @@ class Common extends Base {
 
 		if ( ! $user || in_array( 'author', $user->roles ) ) return;
 
-		$user->set_role( 'author' );
+		$user->add_role( 'author' );
 	}
 
 	public function decrement_offer_count( $subscription ) {
