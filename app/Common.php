@@ -68,4 +68,12 @@ class Common extends Base {
 
 		$user->set_role( 'author' );
 	}
+
+	public function decrement_offer_count( $subscription ) {
+  		$user_id 			= $subscription->get_user_id();
+    	$subscription_id 	= $subscription->get_id();
+		$previous_count 	= get_user_meta( $user_id, 'breakout_offers_count', true );
+		$new_count 			= $previous_count - 1;
+		update_user_meta( $user_id, 'breakout_offers_count', $new_count );
+	}
 }
