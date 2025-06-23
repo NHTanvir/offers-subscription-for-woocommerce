@@ -68,6 +68,17 @@ class Settings extends Base {
 							'multiple'  => false, // true|false
 							'chosen'    => true
 						],
+						'offer_form_page_id' => [
+							'id'      => 'offer_form_page_id',
+							'label'     => __( 'Offer form page id', 'offers-subscription-for-woocommerce' ),
+							'type'      => 'select',
+							'desc'      => __( 'Select with offer form page id', 'offers-subscription-for-woocommerce' ),
+							// 'class'     => '',
+							'options'   => Helper::get_posts( [ 'post_type' => 'page' ], false, true ),
+							'disabled'  => false, // true|false
+							'multiple'  => false, // true|false
+							'chosen'    => true
+						],
 					]
 				],
 			],

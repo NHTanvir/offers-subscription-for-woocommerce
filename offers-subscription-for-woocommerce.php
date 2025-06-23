@@ -191,6 +191,7 @@ final class Plugin {
 		$common->action( 'init', 'register_post_type' );
 		$common->action( 'woocommerce_subscription_status_active', 'make_user_author_on_subscription', 10, 1 );
 		$common->action('woocommerce_subscription_status_expired', 'decrement_offer_count' );
+		$common->action('template_redirect', 'redirect_to_custom_page' );
 
 		/**
 		 * AJAX related hooks

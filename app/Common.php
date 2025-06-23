@@ -76,4 +76,17 @@ class Common extends Base {
 		$new_count 			= $previous_count - 1;
 		update_user_meta( $user_id, 'breakout_offers_count', $new_count );
 	}
+
+	public function redirect_to_custom_page() {
+		if ( is_wc_endpoint_url('order-received') && isset( $_GET['key'] ) ) {
+
+			$form_page_id = Helper::get_option( 'offers-subscription-for-woocommerce_advanced', 'offer_form_page_id' );
+
+			if ($form_page_id) {
+				$custom_page_url = get_permalink($form_page_id);
+				wp_safe_redirect($custom_page_url);
+				exit;
+			}
+		}
+	}
 }
