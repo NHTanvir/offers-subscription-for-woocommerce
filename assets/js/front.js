@@ -65,4 +65,38 @@ jQuery(function($){
              .prop('disabled', true)
              .text('Submitting…');
     });
+        $('#breakout-offer-edit-form').on('submit', function(e) {
+        e.preventDefault();
+
+        var $form = $(this),
+            fd = new FormData(this);
+
+        fd.append('action', 'update_offer');
+        fd.append('_wpnonce', Offers_Subscription_For_WooCommerce._wpnonce);
+
+        $('#breakout-offer-edit-response').empty();
+
+        // Disable submit button & show loading text
+        $form.find('button[type="submit"]').prop('disabled', true).text('Updating…');
+        osfw_modal(true);
+        $.ajax({
+            url: Offers_Subscription_For_WooCommerce.ajaxurl,
+            method: 'POST',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        }).done(function(resp) {
+            if (resp.success) {
+                $('#breakout-offer-edit-response').html('<p style="color:green;">' + resp.data + '</p>');
+            } else {
+                $('#breakout-offer-edit-response').html('<p style="color:red;">' + (resp.data || 'Update failed.') + '</p>');
+            }
+        }).fail(function(jqXHR, textStatus) {
+            $('#breakout-offer-edit-response').html('<p style="color:red;">AJAX error: ' + textStatus + '</p>');
+        }).always(function() {
+            $form.find('button[type="submit"]').prop('disabled', false).text('Update Offer');
+            osfw_modal(false);
+        });
+    });
 });

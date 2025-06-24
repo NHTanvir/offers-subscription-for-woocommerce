@@ -171,7 +171,10 @@ final class Plugin {
 			 */
 			$shortcode = new App\Shortcode( $this->plugin );
 			$shortcode->register( 'breakout_offer_form', 'offers_form' );
-			$shortcode->register('breakout_offer_grid', 'offer_grid');
+			// $shortcode->register('breakout_offer_grid', 'offer_grid');
+			$shortcode->register('breakout_offer_edit_form', 'offer_edit_form');
+
+			
 
 		endif;
 
@@ -189,7 +192,7 @@ final class Plugin {
 		 */
 		$common = new App\Common( $this->plugin );
 		$common->action( 'init', 'register_post_type' );
-		$common->action( 'woocommerce_subscription_status_active', 'make_user_author_on_subscription', 10, 1 );
+		// $common->action( 'woocommerce_subscription_status_active', 'make_user_author_on_subscription', 10, 1 );
 		$common->action('woocommerce_subscription_status_expired', 'decrement_offer_count' );
 		$common->action('template_redirect', 'redirect_to_custom_page' );
 
@@ -198,6 +201,7 @@ final class Plugin {
 		 */
 		$ajax = new App\AJAX( $this->plugin );
 		$ajax->all( 'bo_submit', 'submit_offer' );
+		$ajax->all( 'update_offer', 'update_offer' );
 	}
 
 	/**
