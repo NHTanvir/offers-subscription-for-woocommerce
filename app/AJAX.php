@@ -32,15 +32,6 @@ class AJAX extends Base {
 	}
 
 	public function submit_offer() {
-		// if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'] ) ) {
-		// 	wp_send_json_error( __( 'Security check failed.', 'breakout-offers' ) );
-		// }
-
-
-		// Require login
-		if ( ! is_user_logged_in() ) {
-			wp_send_json_error( __( 'You must be logged in.', 'breakout-offers' ) );
-		}
 
 		$user_id = get_current_user_id();
 
@@ -61,7 +52,8 @@ class AJAX extends Base {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
-		$uploaded_images = [];
+		$img1_id = $img2_id = null;
+
 		foreach ( [ 'img1', 'img2' ] as $img_key ) {
 			if ( ! empty( $_FILES[ $img_key ]['name'] ) ) {
 				$file = $_FILES[ $img_key ];
@@ -71,7 +63,6 @@ class AJAX extends Base {
 					wp_send_json_error( $upload['error'] );
 				}
 
-				// Save image ID if needed
 				$attachment = [
 					'post_mime_type' => $upload['type'],
 					'post_title'     => sanitize_file_name( $file['name'] ),
@@ -82,7 +73,12 @@ class AJAX extends Base {
 				$attach_id = wp_insert_attachment( $attachment, $upload['file'] );
 				$attach_data = wp_generate_attachment_metadata( $attach_id, $upload['file'] );
 				wp_update_attachment_metadata( $attach_id, $attach_data );
-				$uploaded_images[ $img_key ] = $attach_id;
+
+				if ( $img_key === 'img2' ) {
+					$img2_id = $attach_id;
+				} elseif ( $img_key === 'img1' ) {
+					$img1_id = $attach_id;
+				}
 			}
 		}
 
@@ -101,7 +97,7 @@ class AJAX extends Base {
 		}
 
 		$offers_submitted = (int) get_user_meta( $user_id, 'offers_submitted_count', true );
-		$offers_submitted = $offers_submitted + 1;
+		$offers_submitted++;
 		update_user_meta( $user_id, 'offers_submitted_count', $offers_submitted );
 
 		// Save meta fields
@@ -116,11 +112,15 @@ class AJAX extends Base {
 			update_post_meta( $post_id, $key, $value );
 		}
 
-		// Save image IDs
-		foreach ( $uploaded_images as $key => $id ) {
-			update_post_meta( $post_id, $key, $id );
+		if ( $img2_id ) {
+			set_post_thumbnail( $post_id, $img2_id );
+		}
+
+		if ( $img1_id ) {
+			update_post_meta( $post_id, 'large_image', $img1_id );
 		}
 
 		wp_send_json_success( __( 'Offer submitted successfully!', 'breakout-offers' ) );
 	}
+
 }
